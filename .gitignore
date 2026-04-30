@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+
+# SQLite 数据
+backend/data/
+
+# Java / Maven
+desktop/target/
+*.class
+.idea/
+*.iml
+
+# macOS / 编辑器
+.DS_Store
+.vscode/

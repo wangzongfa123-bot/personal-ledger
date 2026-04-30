@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人记账本</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>💰 个人记账本</h1>
+    <span class="topbar-sub">多端共享 · Python 后端 / Web · Java 桌面端</span>
+  </header>
+
+  <main class="container">
+    <!-- 概览 -->
+    <section class="card stats">
+      <div class="stat">
+        <div class="stat-label">总收入</div>
+        <div class="stat-value income" id="stat-income">¥0.00</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">总支出</div>
+        <div class="stat-value expense" id="stat-expense">¥0.00</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">结余</div>
+        <div class="stat-value balance" id="stat-balance">¥0.00</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">笔数</div>
+        <div class="stat-value" id="stat-count">0</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- 记账表单 -->
+      <section class="card form-card">
+        <h2>记一笔</h2>
+        <form id="tx-form">
+          <div class="row kind-row">
+            <label class="radio-pill">
+              <input type="radio" name="kind" value="expense" checked />
+              <span>支出</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="kind" value="income" />
+              <span>收入</span>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>金额</label>
+            <input type="number" name="amount" min="0.01" step="0.01" required placeholder="0.00" />
+          </div>
+
+          <div class="row">
+            <label>分类</label>
+            <select name="category_id" id="category-select" required></select>
+          </div>
+
+          <div class="row">
+            <label>时间</label>
+            <input type="datetime-local" name="occurred_at" id="occurred-at" />
+          </div>
+
+          <div class="row">
+            <label>备注</label>
+            <input type="text" name="note" maxlength="255" placeholder="可选" />
+          </div>
+
+          <button type="submit" class="primary">保存</button>
+          <p class="form-tip" id="form-tip"></p>
+        </form>
+      </section>
+
+      <!-- 列表 -->
+      <section class="card list-card">
+        <div class="list-header">
+          <h2>账单流水</h2>
+          <div class="filters">
+            <select id="filter-kind">
+              <option value="">全部类型</option>
+              <option value="expense">仅支出</option>
+              <option value="income">仅收入</option>
+            </select>
+            <select id="filter-category">
+              <option value="">全部分类</option>
+            </select>
+            <button id="btn-refresh" class="ghost">刷新</button>
+          </div>
+        </div>
+        <div class="tx-list" id="tx-list"></div>
+      </section>
+    </div>
+
+    <!-- 分类统计 -->
+    <section class="card">
+      <h2>分类汇总</h2>
+      <div id="by-category" class="cat-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    后端：FastAPI · 数据库：SQLite · 多端共享 API: <code>/api/*</code>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
